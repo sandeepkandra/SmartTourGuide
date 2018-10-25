@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.tomtom.online:sdk-location-2.243">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sdk-location-2.243.aar/1b880bf05c9ae03b9068986d69066b07/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sdk-location-2.243.aar/1b880bf05c9ae03b9068986d69066b07/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tomtom.online/sdk-location/2.243/9913a7b9752ab6b19c3f39ac534ae55b6ed45e17/sdk-location-2.243-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

@@ -9,10 +9,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="OnlineMaps.Key"
+            android:value="Vp8iZB1L0huppv0LCdg2s5WPAWZ0w1pJ" />
+        <meta-data
+            android:name="OnlineTraffic.Key"
+            android:value="Vp8iZB1L0huppv0LCdg2s5WPAWZ0w1pJ" />
+        <meta-data
+            android:name="OnlineSearch.Key"
+            android:value="Vp8iZB1L0huppv0LCdg2s5WPAWZ0w1pJ" />
+        <meta-data
+            android:name="OnlineRouting.Key"
+            android:value="Vp8iZB1L0huppv0LCdg2s5WPAWZ0w1pJ" />
+
         <activity
             android:name=".NavActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity android:name=".MapActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

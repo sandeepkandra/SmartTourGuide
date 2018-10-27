@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateTripActivity">
+    tools:context=".activities.CreateTripActivity">
     <RelativeLayout
         android:id="@+id/layout_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white_fully_opaque"
         android:paddingBottom="5dp"
+        android:layout_margin="10dp"
         >
 
         <EditText
@@ -44,8 +45,16 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/btn_main_poisearch"
-            android:layout_marginTop="50dp"
+            android:layout_marginBottom="10dp"
             android:hint="Enter Place Here"/>
+        <EditText
+            android:layout_below="@+id/autoCompleteTextView"
+            android:id="@+id/editTextStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:editable="false"
+            android:hint="Select Start Date"/>
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

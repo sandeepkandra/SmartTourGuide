@@ -22,12 +22,21 @@ import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.common.collect.ImmutableList;
 import com.simon.smarttourguide.R;
 import com.simon.smarttourguide.adapter.PlaceArrayAdapter;
+import com.tomtom.online.sdk.search.OnlineSearchApi;
+import com.tomtom.online.sdk.search.SearchApi;
+import com.tomtom.online.sdk.search.data.fuzzy.FuzzySearchQuery;
+import com.tomtom.online.sdk.search.data.fuzzy.FuzzySearchQueryBuilder;
+import com.tomtom.online.sdk.search.data.fuzzy.FuzzySearchResponse;
+import com.tomtom.online.sdk.search.data.fuzzy.FuzzySearchResult;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import io.reactivex.observers.DisposableSingleObserver;
 
 public class CreateTripActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks {
@@ -96,6 +105,30 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+
+        SearchApi searchApi = OnlineSearchApi.create(CreateTripActivity.this);
+        FuzzySearchQuery fsq= FuzzySearchQueryBuilder.create("Bangalore").build();
+        searchApi.search(fsq)
+
+
+
+                .subscribe(new DisposableSingleObserver<FuzzySearchResponse>() {
+                    @Override
+                    public void onSuccess(FuzzySearchResponse fuzzySearchResponse) {
+                        Log.e("result",fuzzySearchResponse.getResults().toString());
+                        Toast.makeText(CreateTripActivity.this, fuzzySearchResponse.getResults().toString(), Toast.LENGTH_LONG).show();
+//                        lastSearchResult = fuzzySearchResponse.getResults();
+//                        searchView.updateSearchResults(fuzzySearchResponse.getResults());
+//                        searchFinished();
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+//                     s
+                    }
+                });
+
+
 //        View.OnClickListener searchButtonListener = getSearchButtonListener();
 //        btnSearch.setOnClickListener(searchButtonListener);
     }

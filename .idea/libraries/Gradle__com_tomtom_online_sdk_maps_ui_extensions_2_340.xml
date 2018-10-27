@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.tomtom.online:sdk-maps-ui-extensions-2.340">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sdk-maps-ui-extensions-2.340.aar/d9ea569c181b9e58d6a09f99ba94e671/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sdk-maps-ui-extensions-2.340.aar/d9ea569c181b9e58d6a09f99ba94e671/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tomtom.online/sdk-maps-ui-extensions/2.340/93340a3d0aa4fc3b9fe0251a0e2d59145f3a9f20/sdk-maps-ui-extensions-2.340-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

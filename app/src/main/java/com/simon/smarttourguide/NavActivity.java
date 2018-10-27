@@ -19,7 +19,7 @@ import android.widget.Button;
 public class NavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    private Button btnTom;
+    private Button btnSuggestTrip,btnCreateTrip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +38,10 @@ public class NavActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        btnTom = (Button) findViewById(R.id.btnTom);
-        btnTom.setOnClickListener(this);
+        btnSuggestTrip = (Button) findViewById(R.id.btnSuggestTrip);
+        btnSuggestTrip.setOnClickListener(this);
+        btnCreateTrip = (Button) findViewById(R.id.btnCreateTrip);
+        btnCreateTrip.setOnClickListener(this);
 
     }
 
@@ -50,12 +52,19 @@ public class NavActivity extends AppCompatActivity
 
         // So we will make
         switch (v.getId() /*to get clicked view id**/) {
-            case R.id.btnTom:
+            case R.id.btnCreateTrip:
 
                 // do something when the corky is clicked
 
-                Intent intent=new Intent(this,MapActivity.class);
+                Intent intent=new Intent(this,CreateTripActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.btnSuggestTrip:
+
+                // do something when the corky is clicked
+
+//                Intent intent=new Intent(this,CreateTripActivity.class);
+//                startActivity(intent);
                 break;
 
             default:

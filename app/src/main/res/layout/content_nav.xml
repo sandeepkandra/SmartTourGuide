@@ -10,10 +10,19 @@
     tools:showIn="@layout/app_bar_nav">
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TomTomMap"
-        android:id="@+id/btnTom"
+        android:text="Create Trip"
+        android:layout_margin="10dp"
+        android:id="@+id/btnCreateTrip"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Suggest Trip"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/btnCreateTrip"
+        android:id="@+id/btnSuggestTrip"
        />
 
 </RelativeLayout>

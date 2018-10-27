@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CreateTripActivity">
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/layout_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,6 +20,7 @@
             android:background="@android:color/transparent"
             android:hint="Enter location"
             android:imeOptions="actionSearch"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_main_poisearch"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,11 +31,21 @@
             android:id="@+id/btn_main_poisearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_search" />
-    </android.support.constraint.ConstraintLayout>
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/btn_main_poisearch"
+            android:layout_marginTop="50dp"
+            android:hint="Enter Place Here"/>
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

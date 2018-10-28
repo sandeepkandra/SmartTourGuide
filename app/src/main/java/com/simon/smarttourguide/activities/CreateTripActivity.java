@@ -1,16 +1,29 @@
 package com.simon.smarttourguide.activities;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -23,6 +36,7 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.common.collect.ImmutableList;
+import com.google.gson.JsonObject;
 import com.simon.smarttourguide.R;
 import com.simon.smarttourguide.adapter.PlaceArrayAdapter;
 import com.tomtom.online.sdk.search.OnlineSearchApi;
@@ -32,8 +46,13 @@ import com.tomtom.online.sdk.search.data.fuzzy.FuzzySearchQueryBuilder;
 import com.tomtom.online.sdk.search.data.fuzzy.FuzzySearchResponse;
 import com.tomtom.online.sdk.search.data.fuzzy.FuzzySearchResult;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import io.reactivex.observers.DisposableSingleObserver;
@@ -42,7 +61,7 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
         GoogleApiClient.ConnectionCallbacks {
     private static final String LOG_TAG = "MainActivity";
     private static final int GOOGLE_API_CLIENT_ID = 0;
-    private AutoCompleteTextView mAutocompleteTextView;
+
     private TextView mNameTextView;
     private TextView mAddressTextView;
     private TextView mIdTextView;
@@ -55,31 +74,109 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
             new LatLng(37.398160, -122.180831), new LatLng(37.430610, -121.972090));
 
     private ImageButton btnSearch;
-    private EditText editTextPois, editTextStartDate;
+    private EditText editTextStartDate, editTextStartTime, editTextEndDate, editTextEndTime, editTextNOC;
+    private AutoCompleteTextView editTextPois;
     Calendar myCalendar = Calendar.getInstance();
+
+    Button btnAdd, btnSubmit;
+    private Spinner mAutocompleteTextView1, mAutocompleteTextView2, mAutocompleteTextView3, mAutocompleteTextView4, mAutocompleteTextView5;
+
+    private static final String[] Address1 = new String[]{
+            "Select City",
+            "Belgium", "France", "Italy", "Germany", "Spain"
+    };
+
+    private boolean a1 = false, a2 = false, a3 = false, a4 = false, a5 = false;
+    private int i = 1;
+    LinearLayout linearLayout1, linearLayout2, linearLayout3, linearLayout4, linearLayout5;
+    private int mYear, mMonth, mDay, mHour, mMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_trip);
-        btnSearch = findViewById(R.id.btn_main_poisearch);
-        editTextPois = findViewById(R.id.edittext_main_poisearch);
 
-        mGoogleApiClient = new GoogleApiClient.Builder(CreateTripActivity.this)
-                .addApi(Places.GEO_DATA_API)
-                .enableAutoManage(this, GOOGLE_API_CLIENT_ID, this)
-                .addConnectionCallbacks(this)
-                .build();
-        mAutocompleteTextView = (AutoCompleteTextView) findViewById(R.id
-                .autoCompleteTextView);
-        mAutocompleteTextView.setThreshold(3);
+        btnAdd = (Button) findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(this);
+        btnSubmit = (Button) findViewById(R.id.btnSubmit);
+        btnSubmit.setOnClickListener(this);
 
-        mAutocompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
-        mPlaceArrayAdapter = new PlaceArrayAdapter(this, android.R.layout.simple_list_item_1,
-                BOUNDS_MOUNTAIN_VIEW, null);
-        mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
+        editTextNOC = findViewById(R.id.editTextNOC);
+
+        mAutocompleteTextView1 = (Spinner) findViewById(R.id
+                .autoCompleteTextView1);
+        mAutocompleteTextView2 = (Spinner) findViewById(R.id
+                .autoCompleteTextView2);
+        mAutocompleteTextView3 = (Spinner) findViewById(R.id
+                .autoCompleteTextView3);
+        mAutocompleteTextView4 = (Spinner) findViewById(R.id
+                .autoCompleteTextView4);
+        mAutocompleteTextView5 = (Spinner) findViewById(R.id
+                .autoCompleteTextView5);
+
+        linearLayout1 = findViewById(R.id.linear1);
+        linearLayout2 = findViewById(R.id.linear2);
+        linearLayout3 = findViewById(R.id.linear3);
+        linearLayout4 = findViewById(R.id.linear4);
+        linearLayout5 = findViewById(R.id.linear5);
+
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, Address1);
+        mAutocompleteTextView1.setAdapter(adapter1);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, Address1);
+        mAutocompleteTextView2.setAdapter(adapter2);
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, Address1);
+        mAutocompleteTextView3.setAdapter(adapter3);
+        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, Address1);
+        mAutocompleteTextView4.setAdapter(adapter4);
+        ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, Address1);
+        mAutocompleteTextView5.setAdapter(adapter5);
+
+
+        mAutocompleteTextView1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                Log.v("item", (String) parent.getItemAtPosition(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+            }
+        });
+        // Places Api
+//               btnSearch = findViewById(R.id.btn_main_poisearch);
+//        btnSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                getAddress();
+//            }
+//        });
+
+//        mGoogleApiClient = new GoogleApiClient.Builder(CreateTripActivity.this)
+//                .addApi(Places.GEO_DATA_API)
+//                .enableAutoManage(this, GOOGLE_API_CLIENT_ID, this)
+//                .addConnectionCallbacks(this)
+//                .build();
+//        mAutocompleteTextView.setThreshold(3);
+//        mAutocompleteTextView.setAdapter(adapter);
+
+//        mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
+//
+//        mAutocompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
+//        mPlaceArrayAdapter = new PlaceArrayAdapter(this, android.R.layout.simple_list_item_1,
+//                BOUNDS_MOUNTAIN_VIEW, null);
+//        mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
 
         editTextStartDate = (EditText) findViewById(R.id.editTextStartDate);
+        editTextStartTime = findViewById(R.id.editTextStartTime);
+        editTextEndDate = findViewById(R.id.editTextEndDate);
+        editTextEndTime = findViewById(R.id.editTextEndTime/**/);
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -100,38 +197,346 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                new DatePickerDialog(CreateTripActivity.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                // Get Current Date
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(CreateTripActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+
+                                editTextStartDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
             }
         });
 
-        SearchApi searchApi = OnlineSearchApi.create(CreateTripActivity.this);
-        FuzzySearchQuery fsq= FuzzySearchQueryBuilder.create("Bangalore").build();
-        searchApi.search(fsq)
+        editTextStartTime.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                final Calendar c = Calendar.getInstance();
+                mHour = c.get(Calendar.HOUR_OF_DAY);
+                mMinute = c.get(Calendar.MINUTE);
+
+                // Launch Time Picker Dialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(CreateTripActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+
+                                editTextStartTime.setText(hourOfDay + ":" + minute);
+                            }
+                        }, mHour, mMinute, false);
+                timePickerDialog.show();
+            }
+        });
+        editTextEndDate.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
+                DatePickerDialog datePickerDialog = new DatePickerDialog(CreateTripActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
 
-                .subscribe(new DisposableSingleObserver<FuzzySearchResponse>() {
-                    @Override
-                    public void onSuccess(FuzzySearchResponse fuzzySearchResponse) {
-                        Log.e("result",fuzzySearchResponse.getResults().toString());
-                        Toast.makeText(CreateTripActivity.this, fuzzySearchResponse.getResults().toString(), Toast.LENGTH_LONG).show();
-//                        lastSearchResult = fuzzySearchResponse.getResults();
-//                        searchView.updateSearchResults(fuzzySearchResponse.getResults());
-//                        searchFinished();
-                    }
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
 
-                    @Override
-                    public void onError(Throwable throwable) {
-//                     s
-                    }
-                });
+                                editTextEndDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
+        editTextEndTime.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                final Calendar c = Calendar.getInstance();
+                mHour = c.get(Calendar.HOUR_OF_DAY);
+                mMinute = c.get(Calendar.MINUTE);
+
+                // Launch Time Picker Dialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(CreateTripActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+
+                                editTextEndTime.setText(hourOfDay + ":" + minute);
+                            }
+                        }, mHour, mMinute, false);
+                timePickerDialog.show();
+            }
+        });
 
 
-//        View.OnClickListener searchButtonListener = getSearchButtonListener();
-//        btnSearch.setOnClickListener(searchButtonListener);
     }
+
+
+    @Override
+    public void onClick(View v) {
+        // do something when the button is clicked
+        // Yes we will handle click here but which button clicked??? We don't know
+
+        // So we will make
+        switch (v.getId() /*to get clicked view id**/) {
+            case R.id.btnAdd:
+
+                // do something when the corky is clicked\
+
+                i = i + 1;
+                if (i <= 5) {
+                    if (i == 2) {
+                        linearLayout2.setVisibility(View.VISIBLE);
+                    } else if (i == 3) {
+                        linearLayout3.setVisibility(View.VISIBLE);
+                    } else if (i == 4) {
+                        linearLayout4.setVisibility(View.VISIBLE);
+                    } else if (i == 5) {
+                        linearLayout5.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(this, "Maximum location is added", Toast.LENGTH_LONG).show();
+                }
+
+
+                break;
+            case R.id.btnSubmit:
+
+                editTextStartDate.setError(null);
+                editTextStartTime.setError(null);
+                editTextEndTime.setError(null);
+                editTextEndDate.setError(null);
+                editTextNOC.setError(null);
+                if (editTextStartDate.getText().toString().trim().equals("")) {
+
+                    editTextStartDate.setFocusable(true);
+                    editTextStartDate.requestFocus();
+
+                    String estring = "Select start date";
+                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
+                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
+                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
+                    editTextStartDate.setError(ssbuilder);
+                    return;
+                }
+
+
+                if (editTextStartDate.getText().toString().startsWith(" ")) {
+                    String estring = "Space is not allowed in first character";
+                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
+                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
+                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
+                    editTextStartDate.setError(ssbuilder);
+                    editTextStartDate.requestFocus();
+                    return;
+                } else {
+//                    passcode = editTextStartDate.getText().toString();
+                }
+
+                if (editTextStartTime.getText().toString().trim().equals("")) {
+
+                    editTextStartTime.setFocusable(true);
+                    editTextStartTime.requestFocus();
+
+                    String estring = "Select start time";
+                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
+                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
+                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
+                    editTextStartTime.setError(ssbuilder);
+                    return;
+                }
+
+
+                if (editTextEndDate.getText().toString().trim().equals("")) {
+
+                    editTextEndDate.setFocusable(true);
+                    editTextEndDate.requestFocus();
+
+                    String estring = "Select end date";
+                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
+                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
+                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
+                    editTextEndDate.setError(ssbuilder);
+                    return;
+                }
+
+                if (editTextEndTime.getText().toString().trim().equals("")) {
+
+                    editTextEndTime.setFocusable(true);
+                    editTextEndTime.requestFocus();
+
+                    String estring = "Select end time";
+                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
+                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
+                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
+                    editTextEndTime.setError(ssbuilder);
+                    return;
+                }
+                if (editTextNOC.getText().toString().trim().equals("")) {
+
+                    editTextNOC.setFocusable(true);
+                    editTextNOC.requestFocus();
+
+                    String estring = "Enter Number of cars";
+                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
+                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
+                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
+                    editTextNOC.setError(ssbuilder);
+                    return;
+                }
+
+                break;
+
+            default:
+                break;
+        }
+    }
+
+
+    public class AutoCompleteAdapter extends ArrayAdapter<String> implements Filterable {
+
+        private ArrayList<String> fullList;
+        private ArrayList<String> mOriginalValues;
+        private ArrayFilter mFilter;
+
+        public AutoCompleteAdapter(Context context, int resource, int textViewResourceId, List<String> objects) {
+
+            super(context, resource, textViewResourceId, objects);
+            fullList = (ArrayList<String>) objects;
+            mOriginalValues = new ArrayList<String>(fullList);
+
+        }
+
+        @Override
+        public int getCount() {
+            return fullList.size();
+        }
+
+        @Override
+        public String getItem(int position) {
+            return fullList.get(position);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return super.getView(position, convertView, parent);
+        }
+
+        @Override
+        public Filter getFilter() {
+            if (mFilter == null) {
+                mFilter = new ArrayFilter();
+            }
+            return mFilter;
+        }
+
+
+        private class ArrayFilter extends Filter {
+            private Object lock;
+
+            @Override
+            protected FilterResults performFiltering(CharSequence prefix) {
+                FilterResults results = new FilterResults();
+
+                if (mOriginalValues == null) {
+                    synchronized (lock) {
+                        mOriginalValues = new ArrayList<String>(fullList);
+                    }
+                }
+
+                if (prefix == null || prefix.length() == 0) {
+                    synchronized (lock) {
+                        ArrayList<String> list = new ArrayList<String>(mOriginalValues);
+                        results.values = list;
+                        results.count = list.size();
+                    }
+                } else {
+                    final String prefixString = prefix.toString().toLowerCase();
+
+                    ArrayList<String> values = mOriginalValues;
+                    int count = values.size();
+
+                    ArrayList<String> newValues = new ArrayList<String>(count);
+
+                    for (int i = 0; i < count; i++) {
+                        String item = values.get(i);
+                        if (item.toLowerCase().contains(prefixString)) {
+                            newValues.add(item);
+                        }
+
+                    }
+
+                    results.values = newValues;
+                    results.count = newValues.size();
+                }
+
+                return results;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+
+                if (results.values != null) {
+                    fullList = (ArrayList<String>) results.values;
+                } else {
+                    fullList = new ArrayList<String>();
+                }
+                if (results.count > 0) {
+                    notifyDataSetChanged();
+                } else {
+                    notifyDataSetInvalidated();
+                }
+            }
+        }
+    }
+
+//    private void getAddress(){
+//        FuzzySearchQuery fsq= FuzzySearchQueryBuilder.create(editTextPois.getText().toString()).build();
+//        SearchApi searchApi = OnlineSearchApi.create(CreateTripActivity.this);
+//        searchApi.search(fsq)
+//
+//                .subscribe(new DisposableSingleObserver<FuzzySearchResponse>() {
+//                    @Override
+//                    public void onSuccess(FuzzySearchResponse fuzzySearchResponse) {
+//                        Log.e("result",fuzzySearchResponse.getResults().toString());
+//
+//                        JSONObject songsObject = json.getJSONObject("songs");
+//                        JSONArray songsArray = songsObject.toJSONArray();
+//
+//                        Toast.makeText(CreateTripActivity.this, fuzzySearchResponse.getResults().toString(), Toast.LENGTH_LONG).show();
+//                        JsonObject jsonObject=new JsonObject(fuzzySearchResponse.getResults().toString());
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable throwable) {
+////
+//                    }
+//                });
+//    }
 
     private void updateLabel() {
         String myFormat = "MM/dd/yy"; //In which you need put here
@@ -199,24 +604,6 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
     public void onConnectionSuspended(int i) {
         mPlaceArrayAdapter.setGoogleApiClient(null);
         Log.e(LOG_TAG, "Google Places API connection suspended.");
-    }
-
-    @Override
-    public void onClick(View v) {
-        // do something when the button is clicked
-        // Yes we will handle click here but which button clicked??? We don't know
-
-        // So we will make
-        switch (v.getId() /*to get clicked view id**/) {
-            case R.id.btn_main_poisearch:
-
-                // do something when the corky is clicked
-
-                break;
-
-            default:
-                break;
-        }
     }
 
     /*@NonNull

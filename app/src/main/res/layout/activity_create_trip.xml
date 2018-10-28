@@ -5,58 +5,256 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.CreateTripActivity">
-    <RelativeLayout
-        android:id="@+id/layout_edittext"
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_fully_opaque"
-        android:paddingBottom="5dp"
-        android:layout_margin="10dp"
-        >
+        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/edittext_main_poisearch"
+        <RelativeLayout
+            android:id="@+id/layout_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:hint="Enter location"
-            android:imeOptions="actionSearch"
+            android:layout_margin="10dp"
+            android:background="@color/white_fully_opaque"
+            android:paddingBottom="5dp">
 
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_main_poisearch"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:inputType="text" />
+            <LinearLayout
+                android:id="@+id/linear1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
 
-        <ImageButton
-            android:id="@+id/btn_main_poisearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:adjustViewBounds="true"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_search" />
+                <Spinner
+                    android:id="@+id/autoCompleteTextView1"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_weight=".8"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:hint="Select address" />
 
-        <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/edittext_main_poisearch"
-            android:layout_marginBottom="10dp"
-            android:hint="Enter Place Here"/>
-        <EditText
-            android:layout_below="@+id/autoCompleteTextView"
-            android:id="@+id/editTextStartDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:clickable="true"
-            android:editable="false"
-            android:hint="Select Start Date"/>
-    </RelativeLayout>
+                <Button
+                    android:id="@+id/btnAdd"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_weight=".2"
+                    android:gravity="center"
+                    android:text="Add"
+                    android:textAlignment="center" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear1"
+                android:visibility="gone"
+                android:weightSum="1">
+
+                <Spinner
+                    android:id="@+id/autoCompleteTextView2"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="10dp"
+
+                    android:layout_weight="1"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:hint="Select address" />
+
+                <Button
+                    android:id="@+id/btnAdd1"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_weight=".2"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear2"
+                android:visibility="gone"
+                android:weightSum="1">
+
+                <Spinner
+                    android:id="@+id/autoCompleteTextView3"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="10dp"
+
+                    android:layout_weight="1"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:hint="Select address" />
+
+                <Button
+                    android:id="@+id/btnAdd2"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_weight=".2"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear3"
+                android:visibility="gone"
+                android:weightSum="1">
+
+                <Spinner
+                    android:id="@+id/autoCompleteTextView4"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="10dp"
+
+                    android:layout_weight="1"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:hint="Select address" />
+
+                <Button
+                    android:id="@+id/btnAdd3"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_weight=".2"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear4"
+                android:visibility="gone"
+                android:weightSum="1">
+
+                <Spinner
+                    android:id="@+id/autoCompleteTextView5"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="10dp"
+
+                    android:layout_weight="1"
+
+                    android:background="@android:drawable/btn_dropdown"
+                    android:hint="Select address" />
+
+                <Button
+                    android:id="@+id/btnAdd4"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_weight=".2"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear5"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+
+                <EditText
+                    android:id="@+id/editTextStartDate"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_below="@+id/linear5"
+                    android:layout_marginRight="5dp"
+                    android:padding="10dp"
+                    android:layout_weight=".5"
+                    android:background="@android:drawable/editbox_background"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:hint="Select Start Date" />
+
+                <EditText
+                    android:id="@+id/editTextStartTime"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_weight=".5"
+                    android:padding="10dp"
+                    android:clickable="true"
+                    android:background="@android:drawable/editbox_background"
+                    android:editable="false"
+                    android:hint="Select Start Time" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear6"
+                android:layout_marginBottom="10dp"
+                android:weightSum="1">
+
+                <EditText
+                    android:id="@+id/editTextEndDate"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_below="@+id/linear5"
+                    android:layout_marginRight="5dp"
+                    android:padding="10dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:layout_weight=".5"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:hint="Select End Date" />
+
+                <EditText
+                    android:id="@+id/editTextEndTime"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_weight=".5"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:padding="10dp"
+                    android:background="@android:drawable/editbox_background"
+                    android:focusable="false"
+                    android:hint="Select End Time" />
+
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/editTextNOC"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_below="@+id/linear7"
+                android:layout_marginBottom="10dp"
+                android:inputType="number"
+                android:padding="10dp"
+                android:background="@android:drawable/editbox_background"
+                android:hint="Number of cars" />
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editTextNOC"
+                android:layout_marginBottom="10dp"
+                android:text="Submit" />
+        </RelativeLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

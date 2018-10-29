@@ -325,89 +325,89 @@ public class CreateTripActivity extends AppCompatActivity implements View.OnClic
 
                 break;
             case R.id.btnSubmit:
-//
-//                editTextStartDate.setError(null);
-//                editTextStartTime.setError(null);
-//                editTextEndTime.setError(null);
-//                editTextEndDate.setError(null);
-//                editTextNOC.setError(null);
-//                if (editTextStartDate.getText().toString().trim().equals("")) {
-//
-//                    editTextStartDate.setFocusable(true);
-//                    editTextStartDate.requestFocus();
-//
-//                    String estring = "Select start date";
-//                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
-//                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
-//                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
-//                    editTextStartDate.setError(ssbuilder);
-//                    return;
-//                }
-//
-//
-//                if (editTextStartDate.getText().toString().startsWith(" ")) {
-//                    String estring = "Space is not allowed in first character";
-//                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
-//                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
-//                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
-//                    editTextStartDate.setError(ssbuilder);
-//                    editTextStartDate.requestFocus();
-//                    return;
-//                } else {
-////                    passcode = editTextStartDate.getText().toString();
-//                }
-//
-//                if (editTextStartTime.getText().toString().trim().equals("")) {
-//
-//                    editTextStartTime.setFocusable(true);
-//                    editTextStartTime.requestFocus();
-//
-//                    String estring = "Select start time";
-//                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
-//                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
-//                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
-//                    editTextStartTime.setError(ssbuilder);
-//                    return;
-//                }
-//
-//
-//                if (editTextEndDate.getText().toString().trim().equals("")) {
-//
-//                    editTextEndDate.setFocusable(true);
-//                    editTextEndDate.requestFocus();
-//
-//                    String estring = "Select end date";
-//                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
-//                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
-//                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
-//                    editTextEndDate.setError(ssbuilder);
-//                    return;
-//                }
-//
-//                if (editTextEndTime.getText().toString().trim().equals("")) {
-//
-//                    editTextEndTime.setFocusable(true);
-//                    editTextEndTime.requestFocus();
-//
-//                    String estring = "Select end time";
-//                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
-//                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
-//                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
-//                    editTextEndTime.setError(ssbuilder);
-//                    return;
-//                }
-//                if (editTextNOC.getText().toString().trim().equals("")) {
-//
-//                    editTextNOC.setFocusable(true);
-//                    editTextNOC.requestFocus();
-//
-//                    String estring = "Enter Number of cars";
-//                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
-//                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
-//                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
-//                    editTextNOC.setError(ssbuilder);
-//                    return;
-//                }
+
+                editTextStartDate.setError(null);
+                editTextStartTime.setError(null);
+                editTextEndTime.setError(null);
+                editTextEndDate.setError(null);
+                editTextNOC.setError(null);
+                if (editTextStartDate.getText().toString().trim().equals("")) {
+
+                    editTextStartDate.setFocusable(true);
+                    editTextStartDate.requestFocus();
+
+                    String estring = "Select start date";
+                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
+                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
+                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
+                    editTextStartDate.setError(ssbuilder);
+                    return;
+                }
+
+
+                if (editTextStartDate.getText().toString().startsWith(" ")) {
+                    String estring = "Space is not allowed in first character";
+                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
+                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
+                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
+                    editTextStartDate.setError(ssbuilder);
+                    editTextStartDate.requestFocus();
+                    return;
+                } else {
+//                    passcode = editTextStartDate.getText().toString();
+                }
+
+                if (editTextStartTime.getText().toString().trim().equals("")) {
+
+                    editTextStartTime.setFocusable(true);
+                    editTextStartTime.requestFocus();
+
+                    String estring = "Select start time";
+                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
+                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
+                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
+                    editTextStartTime.setError(ssbuilder);
+                    return;
+                }
+
+
+                if (editTextEndDate.getText().toString().trim().equals("")) {
+
+                    editTextEndDate.setFocusable(true);
+                    editTextEndDate.requestFocus();
+
+                    String estring = "Select end date";
+                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
+                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
+                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
+                    editTextEndDate.setError(ssbuilder);
+                    return;
+                }
+
+                if (editTextEndTime.getText().toString().trim().equals("")) {
+
+                    editTextEndTime.setFocusable(true);
+                    editTextEndTime.requestFocus();
+
+                    String estring = "Select end time";
+                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
+                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
+                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
+                    editTextEndTime.setError(ssbuilder);
+                    return;
+                }
+                if (editTextNOC.getText().toString().trim().equals("")) {
+
+                    editTextNOC.setFocusable(true);
+                    editTextNOC.requestFocus();
+
+                    String estring = "Enter Number of cars";
+                    ForegroundColorSpan fgcspan = new ForegroundColorSpan(Color.RED);
+                    SpannableStringBuilder ssbuilder = new SpannableStringBuilder(estring);
+                    ssbuilder.setSpan(fgcspan, 0, estring.length(), 0);
+                    editTextNOC.setError(ssbuilder);
+                    return;
+                }
                 Intent intent=new Intent(this,PlacesActivity.class);
                 startActivity(intent);
 

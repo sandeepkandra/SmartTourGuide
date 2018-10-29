@@ -48,7 +48,7 @@ public class PlacesActivity extends AppCompatActivity {
 
         place.placeName = "Chittoor";
         placesLoc.places.add(place1);
-        placesAdapter = new PlacesAdapter(placesLoc, getApplicationContext());
+        placesAdapter = new PlacesAdapter(placesLoc, PlacesActivity.this,PlacesActivity.this);
 
         //recyclerViewMenuItems.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewPlaces.setAdapter(placesAdapter);

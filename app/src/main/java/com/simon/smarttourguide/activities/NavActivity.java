@@ -79,8 +79,8 @@ public class NavActivity extends AppCompatActivity
 
                 // do something when the corky is clicked
 
-//                Intent intent=new Intent(this,CreateTripActivity.class);
-//                startActivity(intent);
+                Intent intent1=new Intent(this,MapActivity.class);
+                startActivity(intent1);
                 break;
 
             default:
